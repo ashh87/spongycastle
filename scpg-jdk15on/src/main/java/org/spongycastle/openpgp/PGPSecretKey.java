@@ -782,6 +782,12 @@ public class PGPSecretKey
         PBESecretKeyEncryptor  newKeyEncryptor)
         throws PGPException
     {
+
+        if (key.isPrivateKeyEmpty())
+        {
+            return key;
+        }
+
         byte[]   rawKeyData = key.extractKeyData(oldKeyDecryptor);
         int        s2kUsage = key.secret.getS2KUsage();
         byte[]      iv = null;
