@@ -563,6 +563,21 @@ public class PGPSecretKey
     }
 
     /**
+     * Detect if the Secret Key's Private Key is empty or not
+     *
+     * @return boolean  whether or not the private key is empty
+     */
+    public boolean isPrivateKeyEmpty()
+    {
+        byte[] secKeyData = secret.getSecretKeyData();
+        if (secKeyData == null || secKeyData.length < 1)
+        {
+            return true;
+        }
+        return false;
+    }
+
+    /**
      * Extract a PGPPrivate key from the SecretKey's encrypted contents.
      *
      * @param decryptorFactory  factory to use to generate a decryptor for the passed in secretKey.
@@ -573,8 +588,7 @@ public class PGPSecretKey
         PBESecretKeyDecryptor decryptorFactory)
         throws PGPException
     {
-        byte[] secKeyData = secret.getSecretKeyData();
-        if (secKeyData == null || secKeyData.length < 1)
+        if (isPrivateKeyEmpty())
         {
             return null;
         }
