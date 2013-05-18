@@ -565,16 +565,13 @@ public class PGPSecretKey
     /**
      * Detect if the Secret Key's Private Key is empty or not
      *
-     * @return boolean  whether or not the private key is empty
+     * @return boolean whether or not the private key is empty
      */
     public boolean isPrivateKeyEmpty()
     {
         byte[] secKeyData = secret.getSecretKeyData();
-        if (secKeyData == null || secKeyData.length < 1)
-        {
-            return true;
-        }
-        return false;
+
+        return (secKeyData == null || secKeyData.length < 1);
     }
 
     /**
@@ -785,7 +782,7 @@ public class PGPSecretKey
 
         if (key.isPrivateKeyEmpty())
         {
-            return key;
+            throw new PGPException("no private key in this SecretKey - public key present only.");
         }
 
         byte[]   rawKeyData = key.extractKeyData(oldKeyDecryptor);
