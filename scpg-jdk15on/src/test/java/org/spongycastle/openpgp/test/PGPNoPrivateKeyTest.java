@@ -1,24 +1,24 @@
-package org.bouncycastle.openpgp.test;
+package org.spongycastle.openpgp.test;
 
 import java.security.Security;
 
-import org.bouncycastle.jce.provider.BouncyCastleProvider;
-import org.bouncycastle.openpgp.PGPException;
-import org.bouncycastle.openpgp.PGPSecretKey;
-import org.bouncycastle.openpgp.PGPSecretKeyRing;
-import org.bouncycastle.openpgp.operator.jcajce.JcaKeyFingerprintCalculator;
-import org.bouncycastle.openpgp.operator.jcajce.JcaPGPDigestCalculatorProviderBuilder;
-import org.bouncycastle.openpgp.operator.jcajce.JcePBESecretKeyDecryptorBuilder;
-import org.bouncycastle.openpgp.operator.jcajce.JcePBESecretKeyEncryptorBuilder;
-import org.bouncycastle.util.encoders.Base64;
-import org.bouncycastle.util.test.SimpleTest;
+import org.spongycastle.jce.provider.BouncyCastleProvider;
+import org.spongycastle.openpgp.PGPException;
+import org.spongycastle.openpgp.PGPSecretKey;
+import org.spongycastle.openpgp.PGPSecretKeyRing;
+import org.spongycastle.openpgp.operator.jcajce.JcaKeyFingerprintCalculator;
+import org.spongycastle.openpgp.operator.jcajce.JcaPGPDigestCalculatorProviderBuilder;
+import org.spongycastle.openpgp.operator.jcajce.JcePBESecretKeyDecryptorBuilder;
+import org.spongycastle.openpgp.operator.jcajce.JcePBESecretKeyEncryptorBuilder;
+import org.spongycastle.util.encoders.Base64;
+import org.spongycastle.util.test.SimpleTest;
 
 public class PGPNoPrivateKeyTest
     extends SimpleTest
 {
     String pgpOldPass = "test";
     String pgpNewPass = "newtest";
-    String BOUNCY_CASTLE_PROVIDER_NAME = "BC";
+    String SPONGY_CASTLE_PROVIDER_NAME = "SC";
 
     byte[]    pgpPrivateEmpty = Base64.decode(
           "lQCVBFGSNGwBBACwABZRIEW/4vDQajcO0FW39yNDcsHBDwPkGT95D7jiVTTRoSs6"
@@ -140,7 +140,7 @@ public class PGPNoPrivateKeyTest
         {
             PGPSecretKey pgpChangedKey = PGPSecretKey.copyWithNewPassword(pgpSecKey,
                 new JcePBESecretKeyDecryptorBuilder(
-                    new JcaPGPDigestCalculatorProviderBuilder().setProvider(BOUNCY_CASTLE_PROVIDER_NAME).build()).setProvider(BOUNCY_CASTLE_PROVIDER_NAME).build(pgpOldPass.toCharArray()),
+                    new JcaPGPDigestCalculatorProviderBuilder().setProvider(SPONGY_CASTLE_PROVIDER_NAME).build()).setProvider(SPONGY_CASTLE_PROVIDER_NAME).build(pgpOldPass.toCharArray()),
                 new JcePBESecretKeyEncryptorBuilder(pgpSecKey.getKeyEncryptionAlgorithm()).build(pgpNewPass.toCharArray()));
         }
         catch (PGPException e)
